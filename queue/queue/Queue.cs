@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace queue {
-    class Queue {
+    class Queue<T> {
 
-        private string[] queue;
+        private T[] queue;
         private int count = 0; // också size
         //sizen på en kö är väll lämplig att vara lika stor som kön ? eller finns det fördela med att den ska vara stor? som med Stack?
 
@@ -16,23 +16,23 @@ namespace queue {
         // Eftersom jag anser att det inte finns någon fördel med en större kö än vad kön är skapas alltid kön som 0
         //Sedan för man Enqueuea själv
         public Queue() {
-            queue = new string[0];
+            queue = new T[0];
         }
 
         //lägger till längst fram i kön 
-        public void Enqueue(string value) {
+        public void Enqueue(T value) {
             ReSize(count + 1);
             // lägg till sisti kön (störst index)
             queue[count] = value;
             count++;
         }
 
-        public string Dequeue() {
+        public T Dequeue() {
             if (queue.Length > 0) {
                 // Eftersom första (först i kön) elementet ska bort måste allt flyttas fram.
-                string[] temp = queue;
+                T[] temp = queue;
 
-                queue = new string[count];
+                queue = new T[count];
 
                 // i = 1 på  för att inte få med det första elementet (det som ska tas bort)
                 for (int i = 1; i < count; i++) {
@@ -46,15 +46,16 @@ namespace queue {
                 return temp[0];
             } else {
                 // om kön är tom ska man inte kunna Dequeue (då blir det utanför index)
-                return null;
+                return default;
+             
             }
 
         }
 
         private void ReSize(int size) {
-            string[] temp = queue;
+            T[] temp = queue;
 
-            queue = new string[size];
+            queue = new T[size];
 
             for (int i = 0; i < count; i++) {
                 queue[i] = temp[i];
@@ -63,17 +64,17 @@ namespace queue {
 
         public void Clear() {
             count = 0;
-            queue = new string[0];
+            queue = new T[0];
         }
 
-        public string Peek() {
+        public T Peek() {
             //Retunera Första värdet som också är först i kön
             return queue[0];
         }
 
 
         // Om man vill skriva ett visst index ut kön (eller hela.)
-        public string this[int i] {
+        public T this[int i] {
             get { return queue[i]; }
             set { queue[i] = value; }
         }

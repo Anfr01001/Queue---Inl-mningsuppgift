@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace queue {
     class Program {
         static void Main(string[] args) {
 
-            Queue queue = new Queue();
+            Queue<string> queue = new Queue<string>();
+
+            //List<int> hej = new List<int>()
+          
 
             string input;
 
